@@ -10,11 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AgirRouteImport } from './routes/agir'
+import { Route as DonRouteImport } from './routes/don'
 import { Route as PreventionRouteImport } from './routes/prevention'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgirRoute = AgirRouteImport.update({
+  id: '/agir',
+  path: '/agir',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DonRoute = DonRouteImport.update({
+  id: '/don',
+  path: '/don',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PreventionRoute = PreventionRouteImport.update({
@@ -25,27 +37,35 @@ const PreventionRoute = PreventionRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agir': typeof AgirRoute
+  '/don': typeof DonRoute
   '/prevention': typeof PreventionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agir': typeof AgirRoute
+  '/don': typeof DonRoute
   '/prevention': typeof PreventionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agir': typeof AgirRoute
+  '/don': typeof DonRoute
   '/prevention': typeof PreventionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/prevention'
+  fullPaths: '/' | '/agir' | '/don' | '/prevention'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/prevention'
-  id: '__root__' | '/' | '/prevention'
+  to: '/' | '/agir' | '/don' | '/prevention'
+  id: '__root__' | '/' | '/agir' | '/don' | '/prevention'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgirRoute: typeof AgirRoute
+  DonRoute: typeof DonRoute
   PreventionRoute: typeof PreventionRoute
 }
 
@@ -56,6 +76,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agir': {
+      id: '/agir'
+      path: '/agir'
+      fullPath: '/agir'
+      preLoaderRoute: typeof AgirRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/don': {
+      id: '/don'
+      path: '/don'
+      fullPath: '/don'
+      preLoaderRoute: typeof DonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/prevention': {
@@ -70,6 +104,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgirRoute: AgirRoute,
+  DonRoute: DonRoute,
   PreventionRoute: PreventionRoute,
 }
 export const routeTree = rootRouteImport
