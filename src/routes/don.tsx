@@ -23,7 +23,7 @@ export const Route = createFileRoute("/don")({
       },
     ],
   }),
-  component: DonPage;
+  component: DonPage,
 });
 
 const AMOUNTS = [5, 10, 25, 50, 100];
